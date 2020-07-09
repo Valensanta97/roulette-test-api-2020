@@ -30,5 +30,8 @@ public class RouletteRepository implements RedisRepository {
 		hashOperations.put(KEY, id, roulette);
 		return id;
 	}
-
+	@Override
+	public Map<String, Roulette> findAllRoulettes() {
+		return hashOperations.entries(KEY);
+	}
 }

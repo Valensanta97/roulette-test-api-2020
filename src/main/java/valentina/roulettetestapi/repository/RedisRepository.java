@@ -7,5 +7,6 @@ import valentina.roulettetestapi.domain.Roulette;
 public interface RedisRepository {
 	
 	String createRoulette(Roulette roulette);
+	Map<String,Roulette> findAllRoulettes();
 	
 }
