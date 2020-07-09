@@ -28,4 +28,14 @@ public class RouletteController {
 		return rouletteRepository.findAllRoulettes();
 	}
 
+	@PostMapping("/roulettes/{idRoulette}/open")
+	public int openRoulette(@PathVariable String idRoulette) {
+		return rouletteRepository.openRoulette(idRoulette);
+	}
+
+	@PostMapping("/roulettes/{idRoulette}/closed")
+	public int closedRoulette(@PathVariable String idRoulette) {
+		return rouletteRepository.closedRoulette(idRoulette);
+	}
+
 }

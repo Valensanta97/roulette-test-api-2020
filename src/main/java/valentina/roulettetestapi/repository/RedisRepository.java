@@ -8,5 +8,7 @@ public interface RedisRepository {
 	
 	String createRoulette(Roulette roulette);
 	Map<String,Roulette> findAllRoulettes();
+	int openRoulette(String idRoulette);
+	int closedRoulette(String idRoulette);
 	
 }

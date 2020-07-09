@@ -11,27 +11,48 @@ import valentina.roulettetestapi.domain.Roulette;
 
 @Repository
 public class RouletteRepository implements RedisRepository {
-    private static final String KEY = "Roulette";
-	private RedisTemplate<String,Roulette> redisTemplate;
-    private HashOperations hashOperations;
-    
+
+	private static final String KEY = "Roulette";
+	private RedisTemplate<String, Roulette> redisTemplate;
+	private HashOperations hashOperations;
+
 	public RouletteRepository(RedisTemplate<String, Roulette> redisTemplate) {
 		this.redisTemplate = redisTemplate;
 	}
-	
+
 	@PostConstruct
-	private void init(){
-		hashOperations = redisTemplate.opsForHash();		
+	private void init() {
+		hashOperations = redisTemplate.opsForHash();
 	}
 
 	@Override
 	public String createRoulette(Roulette roulette) {
-		String id =  UUID.randomUUID().toString();
+		String id = UUID.randomUUID().toString();
 		hashOperations.put(KEY, id, roulette);
+
 		return id;
 	}
+
 	@Override
 	public Map<String, Roulette> findAllRoulettes() {
 		return hashOperations.entries(KEY);
+	}
+
+	@Override
+	public int openRoulette(String idRoulette) {
+		Roulette r = (Roulette) hashOperations.get(KEY, idRoulette);
+		r.setState(Roulette.OPEN);
+		hashOperations.put(KEY, idRoulette, r);
+
+		return r.getState();
+	}
+
+	@Override
+	public int closedRoulette(String idRoulette) {
+		Roulette r = (Roulette) hashOperations.get(KEY, idRoulette);
+		r.setState(Roulette.CLOSED);
+		hashOperations.put(KEY, idRoulette, r);
+
+		return r.getState();
 	}
 }

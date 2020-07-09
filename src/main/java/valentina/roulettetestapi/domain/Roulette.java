@@ -3,9 +3,12 @@ package valentina.roulettetestapi.domain;
 import java.io.Serializable;
 
 public class Roulette implements Serializable {
-	
+	public final static int OPEN = 1;
+	public final static int CLOSED = 0;
+	public final static int CREATED = -1;
+
 	private static final long serialVersionUID = 1L;
-	private int state = 1;
+	private int state = CREATED;
 	private String name;
 	
 	public int getState() {
