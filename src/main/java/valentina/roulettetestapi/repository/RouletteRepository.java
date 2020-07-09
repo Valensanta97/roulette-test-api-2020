@@ -6,11 +6,10 @@ import javax.annotation.PostConstruct;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
-import valentina.roulettetestapi.domain.Bet;
 import valentina.roulettetestapi.domain.Roulette;
 
 @Repository
-public class RouletteRepository implements RedisRepository {
+public class RouletteRepository {
 
 	private static final String KEY = "Roulette";
 	private RedisTemplate<String, Roulette> redisTemplate;
@@ -25,7 +24,6 @@ public class RouletteRepository implements RedisRepository {
 		hashOperations = redisTemplate.opsForHash();
 	}
 
-	@Override
 	public String createRoulette(Roulette roulette) {
 		String id = UUID.randomUUID().toString();
 		hashOperations.put(KEY, id, roulette);
@@ -33,12 +31,10 @@ public class RouletteRepository implements RedisRepository {
 		return id;
 	}
 
-	@Override
 	public Map<String, Roulette> findAllRoulettes() {
 		return hashOperations.entries(KEY);
 	}
 
-	@Override
 	public int openRoulette(String idRoulette) {
 		Roulette r = (Roulette) hashOperations.get(KEY, idRoulette);
 		r.setState(Roulette.OPEN);
@@ -47,7 +43,6 @@ public class RouletteRepository implements RedisRepository {
 		return r.getState();
 	}
 
-	@Override
 	public int closedRoulette(String idRoulette) {
 		Roulette r = (Roulette) hashOperations.get(KEY, idRoulette);
 		r.setState(Roulette.CLOSED);

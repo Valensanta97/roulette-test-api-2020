@@ -3,11 +3,11 @@ package valentina.roulettetestapi.domain;
 import java.io.Serializable;
 
 public class Roulette implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	public final static int OPEN = 1;
 	public final static int CLOSED = 0;
 	public final static int CREATED = -1;
-
-	private static final long serialVersionUID = 1L;
 	private int state = CREATED;
 	private String name;
 	

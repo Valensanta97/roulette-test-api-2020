@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+import valentina.roulettetestapi.domain.Bet;
 import valentina.roulettetestapi.domain.Roulette;
 import valentina.roulettetestapi.repository.RouletteRepository;
 
@@ -27,6 +29,7 @@ public class RouletteController {
 	public Map<String, Roulette> findAllRoulettes() {
 		return rouletteRepository.findAllRoulettes();
 	}
+
 
 	@PostMapping("/roulettes/{idRoulette}/open")
 	public int openRoulette(@PathVariable String idRoulette) {

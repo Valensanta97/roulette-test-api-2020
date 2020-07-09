@@ -1,16 +1,20 @@
 package valentina.roulettetestapi.domain;
 
-public class Bet {
-	
-	private boolean color;
+import java.io.Serializable;
+
+public class Bet implements Serializable{
+
+	private static final long serialVersionUID = 1L;	
+	private String color;
 	private double amount;
 	private int number;
-	private int idUser;
+	private String  idUser;
+	private String idRoulette;
 	
-	public boolean isColor() {
+	public String getColor() {
 		return color;
 	}
-	public void setColor(boolean color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 	public double getAmount() {
@@ -25,11 +29,18 @@ public class Bet {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public int getIdUser() {
+	public String getIdUser() {
 		return idUser;
 	}
-	public void setIdUser(int idUser) {
+	public void setIdUser(String idUser) {
 		this.idUser = idUser;
 	}
+	public String getIdRoulette() {
+		return idRoulette;
+	}
+	public void setIdRoulette(String idRoulette) {
+		this.idRoulette = idRoulette;
+	}
 	
+
 }
