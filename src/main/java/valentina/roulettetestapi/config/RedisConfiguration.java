@@ -16,7 +16,7 @@ public class RedisConfiguration {
 	}
 	
 	@Bean 
-	RedisTemplate<String, Roulette> redisTemplate(){
+	RedisTemplate<String, Roulette> rouletteTemplate(){
 		final RedisTemplate<String,Roulette> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(jedisConnectionFactory());
 		return redisTemplate;

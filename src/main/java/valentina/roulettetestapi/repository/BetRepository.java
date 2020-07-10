@@ -11,23 +11,55 @@ import valentina.roulettetestapi.domain.Roulette;
 @Repository
 public class BetRepository {
 
-	private static final String KEY = "Bet";
+	public static final String KEY = "Bet";
 	private RedisTemplate<String, Bet> betTemplate;
-	private HashOperations hashOperations;
+	private RedisTemplate<String, Roulette> rouletteTemplate;
 
-	public BetRepository(RedisTemplate<String, Bet> betTemplate) {
+	private HashOperations hashOperations;
+	private HashOperations rouletteOperations;
+
+	public BetRepository(RedisTemplate<String, Bet> betTemplate, RedisTemplate<String, Roulette> rouletteTemplate) {
 		this.betTemplate = betTemplate;
+		this.rouletteTemplate = rouletteTemplate;
 	}
 
 	@PostConstruct
 	private void init() {
 		hashOperations = betTemplate.opsForHash();
+		rouletteOperations = this.rouletteTemplate.opsForHash();
 	}
-	
+
 	public String bet(Bet bet) {
 		String id = UUID.randomUUID().toString();
-		hashOperations.put(KEY, id, bet);
-		
-		return id;
+		Roulette r = (Roulette) rouletteOperations.get(RouletteRepository.KEY, bet.getIdRoulette());
+
+		if (this.validateBet(bet)) {
+			if (r != null && r.getState() == Roulette.OPEN) {
+				hashOperations.put(KEY, id, bet);
+
+				return id;
+			} else {
+				return "Invalid Roulette";
+			}
+		} else {
+			return "Invalid bet";
+		}
+
+	}
+
+	public boolean validateBet(Bet bet) {
+
+		if (bet.getNumber() != null && bet.getColor() != null) {
+			return false;
+		}
+		if (bet.getColor() != "black" && bet.getColor() != "red") {
+			return false;
+		}
+		if (bet.getNumber() != null && bet.getNumber() >= 0 && bet.getNumber() <= 36 && bet.getAmount() <= 10000
+				&& bet.getAmount() >= 1) {
+			return true;
+		}
+
+		return false;
 	}
 }

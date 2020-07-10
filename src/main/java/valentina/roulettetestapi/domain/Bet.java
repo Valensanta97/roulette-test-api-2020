@@ -7,7 +7,7 @@ public class Bet implements Serializable{
 	private static final long serialVersionUID = 1L;	
 	private String color;
 	private double amount;
-	private int number;
+	private Integer number;
 	private String  idUser;
 	private String idRoulette;
 	
@@ -23,10 +23,10 @@ public class Bet implements Serializable{
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 	public String getIdUser() {

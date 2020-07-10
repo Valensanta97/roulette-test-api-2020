@@ -11,12 +11,12 @@ import valentina.roulettetestapi.domain.Roulette;
 @Repository
 public class RouletteRepository {
 
-	private static final String KEY = "Roulette";
+	public static final String KEY = "Roulette";
 	private RedisTemplate<String, Roulette> redisTemplate;
 	private HashOperations hashOperations;
 
-	public RouletteRepository(RedisTemplate<String, Roulette> redisTemplate) {
-		this.redisTemplate = redisTemplate;
+	public RouletteRepository(RedisTemplate<String, Roulette> rouletteTemplate) {
+		this.redisTemplate = rouletteTemplate;
 	}
 
 	@PostConstruct
@@ -50,4 +50,7 @@ public class RouletteRepository {
 
 		return r.getState();
 	}
+	
+	
+	
 }
