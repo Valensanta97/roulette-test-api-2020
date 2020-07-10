@@ -31,15 +31,17 @@ public class BetRepository {
 	public String doBet(Bet bet) {
 		String id = UUID.randomUUID().toString();
 		Roulette r = (Roulette) rouletteOperations.get(RouletteRepository.KEY, bet.getIdRoulette());
-
 		if (this.validateBet(bet)) {
 			if (r != null && r.getState() == Roulette.OPEN) {
 				hashOperations.put(KEY, id, bet);
+				
 				return id;
 			} else {
+				
 				return "Invalid Roulette";
 			}
 		} else {
+			
 			return "Invalid bet";
 		}
 	}
@@ -56,6 +58,7 @@ public class BetRepository {
 		if (bet.getAmount() <= 10000 && bet.getAmount() >= 1) {
 			return true;
 		}
+		
 		return false;
 	}
 }
