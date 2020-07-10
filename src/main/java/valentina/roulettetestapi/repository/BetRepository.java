@@ -14,7 +14,6 @@ public class BetRepository {
 	public static final String KEY = "Bet";
 	private RedisTemplate<String, Bet> betTemplate;
 	private RedisTemplate<String, Roulette> rouletteTemplate;
-
 	private HashOperations hashOperations;
 	private HashOperations rouletteOperations;
 
@@ -29,14 +28,13 @@ public class BetRepository {
 		rouletteOperations = this.rouletteTemplate.opsForHash();
 	}
 
-	public String bet(Bet bet) {
+	public String doBet(Bet bet) {
 		String id = UUID.randomUUID().toString();
 		Roulette r = (Roulette) rouletteOperations.get(RouletteRepository.KEY, bet.getIdRoulette());
 
 		if (this.validateBet(bet)) {
 			if (r != null && r.getState() == Roulette.OPEN) {
 				hashOperations.put(KEY, id, bet);
-
 				return id;
 			} else {
 				return "Invalid Roulette";
@@ -44,7 +42,6 @@ public class BetRepository {
 		} else {
 			return "Invalid bet";
 		}
-
 	}
 
 	public boolean validateBet(Bet bet) {
@@ -52,14 +49,13 @@ public class BetRepository {
 		if (bet.getNumber() != null && bet.getColor() != null) {
 			return false;
 		}
-		if (bet.getColor() != "black" && bet.getColor() != "red") {
+		if (bet.getColor() != "black" && bet.getColor() != "red"
+				&& (bet.getNumber() != null && bet.getNumber() < 0 && bet.getNumber() > 36)) {
 			return false;
 		}
-		if (bet.getNumber() != null && bet.getNumber() >= 0 && bet.getNumber() <= 36 && bet.getAmount() <= 10000
-				&& bet.getAmount() >= 1) {
+		if (bet.getAmount() <= 10000 && bet.getAmount() >= 1) {
 			return true;
 		}
-
 		return false;
 	}
 }

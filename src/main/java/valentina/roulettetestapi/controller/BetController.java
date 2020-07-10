@@ -10,18 +10,18 @@ import valentina.roulettetestapi.repository.BetRepository;
 
 @RestController
 public class BetController {
-	
+
 	private BetRepository betRepository;
-	
+
 	public BetController(BetRepository betRepository) {
 		this.betRepository = betRepository;
 	}
 
 	@PostMapping("/bet/{idRoulette}")
-	public String bet(@RequestBody Bet bet, @PathVariable String idRoulette, @RequestHeader("id-user") String idUser) {
+	public String doBet(@RequestBody Bet bet, @PathVariable String idRoulette, @RequestHeader("id-user") String idUser) {
 		bet.setIdUser(idUser);
 		bet.setIdRoulette(idRoulette);
-		return betRepository.bet(bet);
+		
+		return betRepository.doBet(bet);
 	}
-
 }

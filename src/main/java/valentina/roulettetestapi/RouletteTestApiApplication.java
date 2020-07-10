@@ -12,5 +12,5 @@ public class RouletteTestApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RouletteTestApiApplication.class, args);
 	}
-	
+
 }

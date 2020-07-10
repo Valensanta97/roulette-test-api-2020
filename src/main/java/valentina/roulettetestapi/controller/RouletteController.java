@@ -1,5 +1,6 @@
 package valentina.roulettetestapi.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,15 +31,13 @@ public class RouletteController {
 		return rouletteRepository.findAllRoulettes();
 	}
 
-
 	@PostMapping("/roulettes/{idRoulette}/open")
 	public int openRoulette(@PathVariable String idRoulette) {
 		return rouletteRepository.openRoulette(idRoulette);
 	}
 
 	@PostMapping("/roulettes/{idRoulette}/closed")
-	public int closedRoulette(@PathVariable String idRoulette) {
+	public ArrayList<Bet> closedRoulette(@PathVariable String idRoulette) {
 		return rouletteRepository.closedRoulette(idRoulette);
 	}
-
 }
