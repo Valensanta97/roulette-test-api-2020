@@ -23,21 +23,25 @@ public class RouletteController {
 
 	@PostMapping("/roulettes")
 	public String createRoulette(@RequestBody Roulette roulette) {
+		
 		return rouletteRepository.createRoulette(roulette);
 	}
 
 	@GetMapping("/roulettes")
 	public Map<String, Roulette> findAllRoulettes() {
+		
 		return rouletteRepository.findAllRoulettes();
 	}
 
 	@PostMapping("/roulettes/{idRoulette}/open")
 	public int openRoulette(@PathVariable String idRoulette) {
+		
 		return rouletteRepository.openRoulette(idRoulette);
 	}
 
 	@PostMapping("/roulettes/{idRoulette}/closed")
 	public ArrayList<Bet> closedRoulette(@PathVariable String idRoulette) {
+		
 		return rouletteRepository.closedRoulette(idRoulette);
 	}
 }

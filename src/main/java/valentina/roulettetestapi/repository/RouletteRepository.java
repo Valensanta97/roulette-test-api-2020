@@ -39,11 +39,12 @@ public class RouletteRepository {
 	public String createRoulette(Roulette roulette) {
 		String id = UUID.randomUUID().toString();
 		hashOperations.put(KEY, id, roulette);
-
+		
 		return id;
 	}
 
 	public Map<String, Roulette> findAllRoulettes() {
+		
 		return hashOperations.entries(KEY);
 	}
 
@@ -83,12 +84,13 @@ public class RouletteRepository {
 	}
 
 	private boolean isBetWinner(Bet bet, Integer randomNum) {
-		
 		if((bet.getNumber() != null && randomNum == bet.getNumber())
 				|| (randomNum != 0 && randomNum % 2 == 0 && bet.getColor().equals("red"))
 				|| (randomNum % 2 != 0 && bet.getColor().equals("black"))){
+			
 			return true;
 		}else {
+			
 			return false;
 		}
 	}
